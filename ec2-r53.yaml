@@ -15,6 +15,8 @@
        instance_type: t2.micro
        image_id: "{{ AMI_ID }}"
        security_group: "{{ Security_Group }}"
+       tags:
+         Name: "{{ item }}"
        loop: "{{ instances }}"
        register: ec2_output
 
