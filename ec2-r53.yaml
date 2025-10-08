@@ -20,13 +20,43 @@
     loop: "{{ instances }}"
     register: ec2_output
 
-  # - name: Print EC2 ec2_output
+  - # - name: print the ec2_output
   #   ansible.builtin.debug:
-  #        var: ec2_output.msg.results[0].instances[0] 
+  #     msg: "{{ ec2_output }}"
 
-  - debug:
-    var: ec2_output.msg.results[0].instances[0]
+  # - name: print public_ip
+  #   ansible.builtin.debug: 
+  #     msg: "{{ item.instances[0].public_ip_address }}"
+  #   loop: "{{ ec2_output.results }}"
 
+  # - name: print private_ip
+  #   ansible.builtin.debug: 
+  #     msg: "{{ item.instances[0].private_ip_address }}"
+  #   loop: "{{ ec2_output.results }}"
+
+  - name: create route53 record
+    amazon.aws.route53:
+      state: present
+      zone: "{{ domainDomain_Name_name }}"
+      record: "{{ item.item }}.{{ Domain_Name }}" # mongodb.daws86s.fun
+      type: A
+      ttl: 1
+      value: "{{ item.instances[0].private_ip_address }}"
+      overwrite: true
+    loop: "{{ ec2_output.results }}"
+
+  # we are creating one record with public only for frontend
+  - name: create route53 record for frontend
+    amazon.aws.route53:
+      state: present
+      zone: "{{ domain_Domain_Namename }}"
+      record: "{{ Domain_Name }}" # daws86s.fun
+      type: A
+      ttl: 1
+      value: "{{ item.instances[0].public_ip_address }}"
+      overwrite: true
+    when: item.item == "frontend"
+    loop: "{{ ec2_output.results }}"
 
 
 #pip3.9 install botocore boto3
