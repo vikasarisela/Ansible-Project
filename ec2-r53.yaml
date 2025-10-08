@@ -25,8 +25,8 @@
   #        var: ec2_output.msg.results[0].instances[0] 
 
   - name: Print instance details
-  debug:
-    var: ec2_output.msg.results[0].instances[0]
+    debug:
+      var: ec2_output.msg.results[0].instances[0]
 
 
 #pip3.9 install botocore boto3
