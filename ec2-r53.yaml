@@ -6,11 +6,11 @@
     Instnace_ID: i-017c9856718c1df33
     Security_Group: sg-07e88823124a6dddf
     Domain_Name: "cloudskills.fun"
-  instances: 
-  - mongodb
+    instances: 
+    - mongodb
   tasks: 
-    - name: create ec2 Instance
-      amazon.aws.ec2_instance:
+  - name: create ec2 Instance
+    amazon.aws.ec2_instance:
        name: "{{ item }}"
        instance_type: t2.micro
        image_id: "{{ AMI_ID }}"
@@ -18,6 +18,6 @@
        loop: "{{ instances }}"
        register: ec2_output
 
-    - name: Print EC2 ec2_output
-      ansbile.builtin.debug:
+  - name: Print EC2 ec2_output
+    ansbile.builtin.debug:
          msg: "{{ ec2_output }}"
