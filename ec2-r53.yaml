@@ -20,9 +20,14 @@
     loop: "{{ instances }}"
     register: ec2_output
 
-  - name: Print EC2 ec2_output
-    ansible.builtin.debug:
-         var: ec2_output.msg.results[0].instances[0] 
+  # - name: Print EC2 ec2_output
+  #   ansible.builtin.debug:
+  #        var: ec2_output.msg.results[0].instances[0] 
+
+  - name: Print instance details
+  debug:
+    var: ec2_output.msg.results[0].instances[0]
+
 
 #pip3.9 install botocore boto3
 # ansible wrote in pyhton , if ansible wants to contact aws , aws is expecting python libraries
