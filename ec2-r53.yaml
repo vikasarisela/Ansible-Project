@@ -17,8 +17,8 @@
        security_group: "{{ Security_Group }}"
        tags:
          Name: "{{ item }}"
-       loop: "{{ instances }}"
-       register: ec2_output
+    loop: "{{ instances }}"
+    register: ec2_output
 
   - name: Print EC2 ec2_output
     ansible.builtin.debug:
