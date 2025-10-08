@@ -1,11 +1,11 @@
 - name: Creating Ec2 Instance and Route53
-  host: local
+  hosts: local
   connection: local
   vars:
-  AMI_ID: ami-09c813fb71547fc4f
-  Instnace_ID: i-017c9856718c1df33
-  Security_Group: sg-07e88823124a6dddf
-  Domain_Name: "cloudskills.fun"
+    AMI_ID: ami-09c813fb71547fc4f
+    Instnace_ID: i-017c9856718c1df33
+    Security_Group: sg-07e88823124a6dddf
+    Domain_Name: "cloudskills.fun"
   instances: 
   - mongodb
   tasks: 
@@ -21,4 +21,3 @@
     - name: Print EC2 ec2_output
       ansbile.builtin.debug:
          msg: "{{ ec2_output }}"
-         
