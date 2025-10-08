@@ -22,7 +22,7 @@
 
   - name: Print EC2 ec2_output
     ansible.builtin.debug:
-         msg: "{{ ec2.output.msg.results[0].instances[0] }}"
+         msg: "{{ ec2_output.msg.results[0].instances[0] }}"
 
 #pip3.9 install botocore boto3
 # ansible wrote in pyhton , if ansible wants to contact aws , aws is expecting python libraries
