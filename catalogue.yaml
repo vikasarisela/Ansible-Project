@@ -39,7 +39,7 @@
 
   - name: Install packages based on package.json.
     community.general.npm:
-    path: /app
+       path: /app
     
   - name: copying the file
     ansible.builtin.copy:
