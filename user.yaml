@@ -37,7 +37,7 @@
        path: /tmp/user.zip
        state: absent
   
-  - name: Download user
+  - name: Download user application
     ansible.builtin.get_url:
        url: https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip
        dest: /tmp/user.zip
@@ -52,35 +52,12 @@
     community.general.npm:
        path: /app
     
-  - name: copying the file
+  - name: copy user service
     ansible.builtin.copy:
       src: user.service
       dest: /etc/systemd/system/user.service   
   
-  - name: copying the file
-    ansible.builtin.copy:
-      src: mongodb.repo
-      dest: /etc/yum.repos.d/mongodb.repo
 
-  - name: install mongodb
-    ansible.builtin.package:
-       name: mongodb-mongosh
-       state: present
-
-  - name: connnect to mongodb user
-    ansible.builtin.command: mongosh mongodb.cloudskills.fun --quiet --eval "db.getMongo().getDBNames().indexOf('user')"
-    register: user_output
-
-  - name: Load Products into mongodb
-    ansible.builtin.shell: mongosh --host mongodb.cloudskills.fun </app/db/master-data.js
-    when: user_output.stdout | int < 0
-
-  - name: start and enable catagloue
-    ansible.builtin.service:
-       name: user
-       enabled: yes
-       state: started
-  
   - name: daemon reload enable and start 
     ansible.builtin.systemd_service:
       name: user
