@@ -8,6 +8,9 @@
     Domain_Name: "cloudskills.fun"
     instances: 
     - mongodb
+    - redis
+    - mysql
+    
   tasks: 
   - name: create ec2 Instance
     amazon.aws.ec2_instance:
@@ -61,3 +64,5 @@
 
 #pip3.9 install botocore boto3
 # ansible wrote in pyhton , if ansible wants to contact aws , aws is expecting python libraries
+
+#ansible-playbook -i inventory.ini -e ansible_user=ec2-user -e ansible_password=DevOps321 ec2-r53.yaml
