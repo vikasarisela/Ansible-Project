@@ -18,11 +18,17 @@
        regexp: '127.0.0.1'
        replace: '0.0.0.0'
 
-  - name: Udate protected mode
+  - name: Allow Remote Connection
     ansible.builtin.replace:
        path: /etc/redis/redis.conf
        regexp: '127.0.0.1'
        replace: '0.0.0.0'
+  
+  - name: Update protected mode
+    ansible.builtin.lineinfile:
+       path: /etc/redis/redis.conf
+       regexp: 'protected-mode'
+       line: 'protected-mode no'
 
   - name: Restart Service
     ansible.builtin.service:
