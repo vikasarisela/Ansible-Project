@@ -58,7 +58,7 @@
 
   - name: connect to mongodb catalogue
     ansible.builtin.command: mongosh mongodb.daws86s.fun --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')"
-    register: catalogue.output
+    register: catalogue_output
 
   - name: Load Products into mongodb
     ansible.builtin.shell: mongosh --host mongodb.cloudskills.fun </app/db/master-data.js
