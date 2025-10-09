@@ -36,5 +36,40 @@
       src: /tmp/catalogue.zip
       dest: /app
       remote_src: yes 
+
+  - name: Install packages based on package.json.
+    community.general.npm:
+    path: /app
     
-      
+  - name: copying the file
+    ansible.builtin.copy:
+      src: catalogue.service
+      dest: /etc/systemd/system/catalogue.service   
+  
+  - name: copying the file
+    ansible.builtin.copy:
+      src: mongodb.repo
+      dest: /etc/yum.repos.d/mongodb.repo
+
+  - name: install mongodb
+    ansible.builtin.package:
+       name: mongodb-mongosh
+       state: present
+
+  - name: connect to mongodb catalogue
+    ansible.builtin.command: mongosh mongodb.daws86s.fun --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')"
+    register: catalogue.output
+
+  - name: Load Products into mongodb
+    ansible.builtin.shell: mongosh --host mongodb.cloudskills.fun </app/db/master-data.js
+    when: catalogue_output.stdout | int < 0
+
+  - name: start and enable catagloue
+    ansible.builtin.service:
+       name: catalogue
+       enabled: yes
+       state: started
+
+
+
+  
