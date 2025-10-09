@@ -1,5 +1,5 @@
 - name: configure shipping server
-  hosts: shipping
+  hosts: Shipping
   become: yes
   tasks:
   - name: install maven
