@@ -7,10 +7,11 @@
     Security_Group: sg-07e88823124a6dddf
     Domain_Name: "cloudskills.fun"
     instances: 
-    - mongodb
-    - redis
-    - mysql
-    - rabbitmq
+    # we can pass instance through command line using -e
+    # - mongodb
+    # - redis
+    # - mysql
+    # - rabbitmq
   tasks: 
   - name: create ec2 Instance
     amazon.aws.ec2_instance:
